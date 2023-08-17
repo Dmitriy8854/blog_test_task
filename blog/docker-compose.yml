@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.data/static:/static
+      - ./.data/media:/media
+  redis:
+    image: redis
+  celery:
+    build:
+      context: .
+    command: celery -A blog worker -l info
+  celery-beat:
+    build:
+      context: .
+    command: celery -A blog beat -l info
