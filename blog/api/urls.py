@@ -2,6 +2,7 @@ from django.urls import include, path
 from rest_framework import routers
 from .views import PostViewSet, SubscriptionViewSet, post_list, APIBlog
 from rest_framework.authtoken import views
+from .yasg import urlpatterns as docs_url
 
 router = routers.SimpleRouter()
 
@@ -13,5 +14,6 @@ urlpatterns = [
     path("list/<str:username>/", post_list),
     # path('list/', post_list),
     path("blog/", APIBlog.as_view()),
-    path("api-token-auth/", views.obtain_auth_token),
 ]
+
+urlpatterns += docs_url
