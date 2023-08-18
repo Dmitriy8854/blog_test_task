@@ -46,9 +46,11 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(detail=False, url_path="list-news", pagination_class=PostPagination)
     def list_news(self, request):
         """Action для ленты новостей"""
-        post_list = Post.objects.select_related("author").filter(
-            author__following__user=request.user
-        )[:500]
+        post_list = (
+            Post.objects.select_related("author")
+            .filter(author__following__user=request.user)
+            .order_by("-creation_date")[:500]
+        )
         serializer = self.get_serializer(post_list, many=True)
         return Response(serializer.data)
 
