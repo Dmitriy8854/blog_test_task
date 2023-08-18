@@ -10,6 +10,8 @@ from rest_framework.validators import UniqueTogetherValidator
 
 
 class ReadPostSerializer(serializers.ModelSerializer):
+    """Serializer для прочитанных постов"""
+
     class Meta:
         model = Post
         fields = ("title", "text", "author")
@@ -17,6 +19,8 @@ class ReadPostSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """Serializer для постов"""
+
     is_read = serializers.SerializerMethodField()
 
     class Meta:
@@ -30,6 +34,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
+    """Serializer для подписок"""
+
     user = serializers.SlugRelatedField(
         slug_field="username",
         queryset=User.objects.all(),

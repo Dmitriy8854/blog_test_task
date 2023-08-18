@@ -17,7 +17,8 @@ def hello(invoice_id):
 app.conf.beat_schedule = {
     "send_1_day": {
         "task": "api.tasks.post_send",
-        "schedule": crontab(hour="*/24"),
+        "schedule": crontab(minute="*/2"),
+        # "schedule": crontab(hour="*/24"),
     },
 }
 

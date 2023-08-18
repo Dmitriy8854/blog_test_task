@@ -7,6 +7,7 @@ from post.models import Post, User
 
 @app.task
 def post_send():
+    """Функция для отправки писем"""
     user = User.objects.all()
     post_list = Post.objects.select_related("author").filter(
         author__following__user=user
