@@ -11,14 +11,10 @@ from django.conf import settings
 def post_send():
     """Функция для отправки писем"""
     for user in User.objects.all():
-        #     user = [i.id for i in User.objects.all()]
-        # post_list = Post.objects.all()[:5]
-        # post_list = Post.objects.select_related("author").filter(
         post_list = Post.objects.filter(author__following__user=user)[:5]
         post_str = "\n".join(
             [post.text for post in post_list],
         )
-
         send_mail(
             subject=f"Ежедневная рассылка постов",
             message=post_str,
